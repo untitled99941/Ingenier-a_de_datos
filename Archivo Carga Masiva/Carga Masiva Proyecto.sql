@@ -1,11 +1,14 @@
+/*En este archivo encuentras el codigo para la creación en la Base de datos como su posterior carga masiva de los datos a la misma */
+
+/*Creación de la tabla Pais*/
+	
 create table pais(
 id_pais int primary key,
 	nombre_pais varchar(21)
 );
-select * from pais
-copy pais (id_pais,nombre_pais) 
-from 'C:\Users\Public\pais.csv' delimiter ';' csv header
 
+/*Creación de la tabla Ciudad'*/
+	
 create table ciudad(
 id_ciudad int primary key,
 	nombre_ciudad varchar(28),
@@ -13,9 +16,7 @@ id_ciudad int primary key,
 	foreign key (id_pais) REFERENCES Pais(id_pais)
 );
 
-select * from ciudad
-copy pais (id_pais,nombre_pais) 
-from 'C:\Users\Public\ciudad.csv' delimiter ';' csv header
+/*Creación de la tabla Aeropuerto'*/
 
 create table aeropuerto(
 codigo char(3) primary key,
@@ -24,9 +25,7 @@ codigo char(3) primary key,
 	foreign key (id_ciudad) REFERENCES ciudad(id_ciudad)
 );
 
-select * from aeropuerto 
-copy aeropuerto (codigo,nombre_aeropuerto,id_ciudad) 
-from 'C:\Users\Public\aeropuerto.csv' delimiter ';' csv header
+/*Creación de la tabla Empresa'*/
 
 create table empresa(
 id_empresa integer primary key,
@@ -34,9 +33,7 @@ id_empresa integer primary key,
 nombre_empresa varchar(52)
 );
 
-select * from empresa
-copy empresa (id_empresa,siglas_empresa,nombre_empresa) 
-from 'C:\Users\Public\empresa.csv' delimiter ';' csv header
+/*Creación de la tabla vuelo'*/
 
 create table vuelo (
 id_vuelo int primary key,
@@ -47,9 +44,8 @@ id_vuelo int primary key,
 	carga int,
 	foreign key (id_empresa) REFERENCES empresa(id_empresa)
 );
-select * from vuelo
-copy vuelo (id_vuelo,id_empresa,trafico_vuelo,t_vuelo,pasajeros,carga) 
-from 'C:\Users\Public\vuelo.csv' delimiter ';' csv header
+
+/*Creación de la tabla utiliza'*/
 
 create table utiliza (
 id_vuelo int primary key,
@@ -59,6 +55,33 @@ cod_aero_origen char(3),
 	foreign key (cod_aero_destino) REFERENCES aeropuerto(codigo),
 	foreign key (cod_aero_origen) REFERENCES aeropuerto(codigo)	
 );
-select * from utiliza
+
+/*Con esta consulta se cargan de manera masiva los datos correspondientes a la tabla pais con su debida noramlización en 3NF'*/
+
+copy pais (id_pais,nombre_pais) 
+from 'C:\Users\Public\pais.csv' delimiter ';' csv header
+
+/*Con esta consulta se cargan de manera masiva los datos correspondientes a la tabla ciudad con su debida noramlización en 3NF'*/
+
+copy ciudad (id_ciudad,nombre_ciudad,id_pais) 
+from 'C:\Users\Public\ciudad.csv' delimiter ';' csv header
+
+/*Con esta consulta se cargan de manera masiva los datos correspondientes a la tabla aeropuerto con su debida noramlización en 3NF'*/
+
+copy aeropuerto (codigo,nombre_aeropuerto,id_ciudad) 
+from 'C:\Users\Public\aeropuerto.csv' delimiter ';' csv header
+
+/*Con esta consulta se cargan de manera masiva los datos correspondientes a la tabla empresa con su debida noramlización en 3NF'*/
+
+copy empresa (id_empresa,siglas_empresa,nombre_empresa) 
+from 'C:\Users\Public\empresa.csv' delimiter ';' csv header
+
+/*Con esta consulta se cargan de manera masiva los datos correspondientes a la tabla vuelo con su debida noramlización en 3NF'*/
+
+copy vuelo (id_vuelo,id_empresa,trafico_vuelo,t_vuelo,pasajeros,carga) 
+from 'C:\Users\Public\vuelo.csv' delimiter ';' csv header
+
+/*Con esta consulta se cargan de manera masiva los datos correspondientes a la tabla utiliza con su debida noramlización en 3NF'*/
+
 copy utiliza (id_vuelo,cod_aero_destino,cod_aero_origen) 
 from 'C:\Users\Public\utiliza.csv' delimiter ';' csv header
