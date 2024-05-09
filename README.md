@@ -6,6 +6,7 @@ En este repositorio encontraras todo el desarrollo del proyecto de Ingeneria de 
 Elaborado por :
 
 Santiago Jorigua 
-Jori 
-Rulos 
-Y muchas monster tomadas por cada uno de los participantes 
+
+Juliana Contreras 
+
+Santiago Vanegas
