@@ -9,4 +9,4 @@ Santiago Jorigua
 
 Juliana Contreras 
 
-Santiago Vanegas
+Samuel Flores 
